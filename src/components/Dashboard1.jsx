@@ -39,7 +39,7 @@ const Dashboard1 = () => {
     <>
       <div>
         <div className="parent">
-          <div className="Dash_U bg-gray-700">
+          <div className="Dash_U bg-black">
             <div className="left_side">
               <div style={{ display: 'flex', flexDirection: 'row', paddingBottom: '20px', position:'relative',top:'0' }}>
                 <div>
