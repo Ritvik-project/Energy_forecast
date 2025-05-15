@@ -126,7 +126,10 @@ function Compare() {
                     type="text"
                     value={location}
                     placeholder='Location:    Ex- Delhi'
-                    onChange={(e) => setLocation(e.target.value)}
+                    onChange={(e) => {
+                      setLocation(e.target.value);
+                      item.name = e.target.value
+                    }}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         fetchLatLng(location);
@@ -137,13 +140,14 @@ function Compare() {
                 </div>
                 <div >
                   <label for='latitude' >Latitude:</label>
-                  <input type="text" id='latitude' value={lat} onChange={(e) => setLat(e.target.value)} style={{ backgroundColor: 'white', left:'0'  }} />
+                  <input type="text" id='latitude' value={lat} onChange={(e) => {setLat(e.target.value); item.latitude=e.target.value}} style={{ backgroundColor: 'white', left:'0'  }} />
                   <label for='longitude' >Longitude:</label>
-                  <input type="text" id='longitude' value={lng} onChange={(e) => setLng(e.target.value)} style={{ backgroundColor: 'white', right:'0' }} />
+                  <input type="text" id='longitude' value={lng} onChange={(e) => {setLng(e.target.value); item.longitude=e.target.value}} style={{ backgroundColor: 'white', right:'0' }} />
 
                 </div>
+                console.log(item)
                 <div>
-                  
+
                 </div>
               </Modal.Body>
               <Modal.Footer>

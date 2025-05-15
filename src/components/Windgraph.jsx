@@ -1,46 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchEnergyData } from './features/energySlice'; 
 
 const Windgraph = () => {
   const [index, setIndex] = useState(0);
-  const [dataw, setDataw] = useState({
-    windpower: [],
-    time: [],
-  });
+  const dispatch = useDispatch();
 
-  const coordinates = useSelector((state) => state.energy.coordinates);
+  const {
+    windEnergy,
+    formattedTime,
+    latitude,
+    longitude,
+    status,
+  } = useSelector((state) => state.energy);
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchEnergyData({ latitude, longitude }));
+    }
+  }, [dispatch, latitude, longitude, status]);
 
   const handleButtonClick = (dayIndex) => {
     setIndex(dayIndex * 24);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`https://pradeepsahu-renewableenergypredictionmodel.hf.space/predict?latitude=${latitude}&longitude=${longitude}`);
-        const data = await response.json();
-        if (data && data.hourly) {
-          setDataw({
-            time: data.hourly.formatted_time || [],
-            windpower: data.hourly.wind_energy || [],
-          });
-        }
-      } catch (error) {
-        console.error('Error fetching wind data:', error);
-      }
-    };
+  const rawHours = formattedTime.slice(index, index + 24);
+const rawPower = windEnergy.slice(index +1 , index + 25); // if shifted
 
-    fetchData();
-  }, [coordinates]);
-
-  const hours = (dataw.time || []).slice(index, index + 24).map((timestamp) => {
+const hours = formattedTime.slice(index, index + 24).map((timestamp) => {
     const date = new Date(timestamp);
-    let hours = date.getHours();
-    return hours < 10 ? '0' + hours : '' + hours;
+    const hour = date.getHours();
+    return hour < 10 ? '0' + hour : '' + hour;
   });
 
-  const windP = (dataw.windpower || []).slice(index, index + 24).map((val) => val / 1000);
+const windP = rawPower.map((val) => val / 1000);
+console.log('X length:', hours.length);
+console.log('Y length:', windP.length);
+// console.log(hours)
+
+
 
   return (
     <>

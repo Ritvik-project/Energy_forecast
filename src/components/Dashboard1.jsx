@@ -83,7 +83,7 @@ const Dashboard1 = () => {
                 <div>
                   <FaWind />
                 </div>
-                <div>20{windspeed[0]}</div>
+                <div>{windspeed[0]}</div>
               </div>
               <div className="same_l">
                 <div>

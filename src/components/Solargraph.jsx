@@ -1,47 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchEnergyData } from './features/energySlice'; // adjust path accordingly
 
 const SolarGraph = () => {
-    console.log("welcome")
   const [index, setIndex] = useState(0);
-  const [datas, setDatas] = useState({
-    time: [],
-    solar: [],
-  });
+  const dispatch = useDispatch();
 
-  const coordinates = useSelector((state) => state.energy.coordinates);
+  const {
+    solarEnergy,
+    formattedTime,
+    latitude,
+    longitude,
+    status,
+  } = useSelector((state) => state.energy);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`https://pradeepsahu-renewableenergypredictionmodel.hf.space/predict?latitude=${latitude}&longitude=${longitude}`);
-        const data = await res.json();
-        console.log("data="+data);
-        if (data && data.hourly) {
-          setDatas({
-            time: data.hourly.formatted_time || [],
-            solar: data.hourly.solar_energy || [],
-          });
-        }
-      } catch (err) {
-        console.error('Fetch error:', err);
-      }
-    };
-    fetchData();
-  }, [coordinates]);
+    if (status === 'idle') {
+      dispatch(fetchEnergyData({ latitude, longitude }));
+    }
+  }, [dispatch, latitude, longitude, status]);
 
   const handleButtonClick = (dayIndex) => {
     setIndex(dayIndex * 24);
   };
 
-  const hours = (datas.time || []).slice(index, index + 24).map((timestamp) => {
+  const hours = formattedTime.slice(index, index + 24).map((timestamp) => {
     const date = new Date(timestamp);
-    let hours = date.getHours();
-    return hours < 10 ? '0' + hours : '' + hours;
+    const hour = date.getHours();
+    return hour < 10 ? '0' + hour : '' + hour;
   });
 
-  const solarP = (datas.solar || []).slice(index, index + 24).map((val) => val / 1000);
+  const solarP = solarEnergy.slice(index, index + 24).map((val) => val / 20000);
+  console.log(hours,solarP)
 
   return (
     <>
@@ -51,7 +42,7 @@ const SolarGraph = () => {
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <LineChart
           xAxis={[{ data: hours, label: 'Time (in hours)' }]}
-          yAxis={[{ label: 'Power' }]}
+          yAxis={[{ label: 'Power (kW)' }]}
           series={[{ data: solarP, label: 'Solar energy (kW)' }]}
           width={800}
           height={250}

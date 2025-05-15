@@ -4,31 +4,46 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MdOutlineSolarPower } from "react-icons/md";
 import { TbWindmill } from "react-icons/tb";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchEnergyData } from './features/energySlice';
+import { fetchEnergyData } from './features/energySlice'; // Adjust path as needed
 
 const Dashboard2 = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { solar = [], wind = [], time =[] } = useSelector((state) => state.energy);
+  const {
+    solarEnergy = [],
+    windEnergy = [],
+    formattedTime = [],
+    latitude,
+    longitude,
+    status
+  } = useSelector((state) => state.energy);
 
+  // Fetch data on mount
   useEffect(() => {
-    dispatch(fetchEnergyData());
-  }, [dispatch]);
+    if (status === 'idle') {
+      dispatch(fetchEnergyData({ latitude, longitude }));
+    }
+  }, [dispatch, latitude, longitude, status]);
 
-  const hours = time.slice(0, 12).map((timestamp) => {
+  const hours = formattedTime.slice(6, 18).map((timestamp) => {
     const date = new Date(timestamp);
-    const hours = date.getHours().toString().padStart(2, '0');
-    return `${hours}`;
+    return date.getHours().toString().padStart(2, '0');
   });
+// console.log("solarEnergy:",solarEnergy)
+  const solarP = solarEnergy.slice(6, 18).map((val) => val / 20000);
+  const windP = windEnergy.slice(6, 18).map((val) => val / 1000);
 
-  const solarP = solar.slice(0, 12).map((val) => val / 1000);
-  const windP = wind.slice(0, 12).map((val) => val / 1000);
+  const maxs = solarP.length ? Math.max(...solarP).toFixed(2) : 'N/A';
+  // const mins = solarP.length ? Math.min(...solarP).toFixed(2) : 'N/A';
+  const maxw = windP.length ? Math.max(...windP).toFixed(2) : 'N/A';
+  // const minw = windP.length ? Math.min(...windP).toFixed(2) : 'N/A';
+  const filteredSolarP = solarP.filter((val) => val > 0);
+  const filteredWindP = windP.filter((val) => val > 0);
 
-  const maxs = Math.max(...solarP).toFixed(2);
-  const mins = Math.min(...solarP).toFixed(2);
-  const maxw = Math.max(...windP).toFixed(2);
-  const minw = Math.min(...windP).toFixed(2);
+const mins = filteredSolarP.length ? Math.min(...filteredSolarP).toFixed(2) : 'N/A';
+const minw = filteredWindP.length ? Math.min(...filteredWindP).toFixed(2) : 'N/A';
+
 
   const clicksolar = () => navigate('/solaroutput');
   const clickwind = () => navigate('/windoutput');
@@ -57,8 +72,8 @@ const Dashboard2 = () => {
                 xAxis={[{ data: hours, label: 'Time (in hours)' }]}
                 yAxis={[{ label: 'Power Generation (in kW)' }]}
                 series={[
-                  { data: solarP, label: 'SOLAR ENERGY' },
-                  { data: windP, label: 'WIND ENERGY' }
+                  { data: windP, label: 'WIND ENERGY' },
+                  { data: solarP, label: 'SOLAR ENERGY' }
                 ]}
                 width={500}
                 height={300}
