@@ -1,0 +1,233 @@
+/* Dashboard2.css */
+
+:root {
+  --solar-gradient: linear-gradient(135deg, #fffaf0 0%, #ffedd5 50%, #fed7aa 100%);
+  --wind-gradient: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+  --solar-icon-bg: rgba(251, 146, 60, 0.2);
+  --solar-icon-color: #ea580c;
+  --wind-icon-bg: rgba(56, 189, 248, 0.2);
+  --wind-icon-color: #0284c7;
+  --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --border-radius: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.energy-dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .energy-dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .chart-card {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .energy-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-card {
+    grid-column: auto;
+  }
+}
+
+.energy-card {
+  border-radius: var(--border-radius);
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.energy-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  transition: var(--transition);
+}
+
+.solar-card::before {
+  background: linear-gradient(90deg, #f97316, #fb923c);
+}
+
+.wind-card::before {
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+}
+
+.energy-card:hover {
+  box-shadow: var(--hover-shadow);
+  transform: translateY(-5px);
+}
+
+.energy-card:hover::before {
+  height: 6px;
+}
+
+.solar-card {
+  background: var(--solar-gradient);
+}
+
+.wind-card {
+  background: var(--wind-gradient);
+}
+
+.chart-card {
+  background-color: white;
+  position: relative;
+}
+
+.chart-card::before {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.solar-icon, .wind-icon {
+  padding: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.solar-icon {
+  background-color: var(--solar-icon-bg);
+  color: var(--solar-icon-color);
+}
+
+.wind-icon {
+  background-color: var(--wind-icon-bg);
+  color: var(--wind-icon-color);
+}
+
+.energy-card:hover .solar-icon,
+.energy-card:hover .wind-icon {
+  transform: scale(1.1);
+}
+
+.card-title {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 15px 0;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.solar-card .card-title {
+  color: #9a3412;
+}
+
+.wind-card .card-title {
+  color: #0c4a6e;
+}
+
+.chart-card .card-title {
+  color: #4338ca;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin: 15px 0;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.solar-card .section-title {
+  color: #c2410c;
+}
+
+.wind-card .section-title {
+  color: #0369a1;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
+}
+
+.data-row:last-child {
+  border-bottom: none;
+}
+
+.data-label {
+  font-weight: 500;
+  color: #64748b;
+}
+
+.data-value {
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.solar-card .data-value {
+  color: #c2410c;
+}
+
+.wind-card .data-value {
+  color: #0369a1;
+}
+
+.chart-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+a.chart-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+}
+
+/* Add some animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.energy-dashboard-grid:hover .energy-card:not(:hover) {
+  opacity: 0.85;
+}
