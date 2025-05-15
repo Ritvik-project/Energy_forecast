@@ -63,6 +63,9 @@ const MapPage = () => {
 
   return (
     <div style={{ backgroundColor: 'black', height: '100%', color: 'white' }}>
+      <div style={{display:'flex',justifyContent:'center',fontFamily:'calibri',fontSize:'40px'}}>
+        <div>Energy Meter</div>    
+      </div>
       <div style={{ display: 'flex', height: '80px', marginBottom: '4px', alignItems: 'center', justifyContent: 'center' }}>
         <input
           type="text"
@@ -87,11 +90,11 @@ const MapPage = () => {
         />
       </div>
 
-      <div style={{ display: 'flex', gap: '10px', padding: '10px', height: '20%', justifyContent: 'center', alignItems: 'center' }}>
-        <label for='latitude'>Latitude:</label>
-        <input type="text" id='latitude' placeholder=" Latitude" value={lat} onChange={(e) => setLat(e.target.value)} style={{ backgroundColor: 'white', color:'grey',marginRight:'40px' }} />
-        <label for='longitude'>Longitude:</label>
-        <input type="text" id='longitude' placeholder=" Longitude" value={lng} onChange={(e) => setLng(e.target.value)} style={{ backgroundColor: 'white',color:'grey' }} />
+      <div style={{ display: 'flex', gap: '10px', padding: '10px', height: '20%', justifyContent: 'center', alignItems: 'center', fontSize:'15px' }}>
+        <label for='latitude' style={{fontSize:'25px'}}>Latitude:</label>
+        <input type="text" id='latitude' value={lat} onChange={(e) => setLat(e.target.value)} style={{ backgroundColor: 'white', color:'grey',marginRight:'40px' }} />
+        <label for='longitude' style={{fontSize:'25px'}}>Longitude:</label>
+        <input type="text" id='longitude' value={lng} onChange={(e) => setLng(e.target.value)} style={{ backgroundColor: 'white',color:'grey' }} />
       </div>
 
       <div style={{ display: 'flex', justifyItems: 'center', justifyContent: 'center', alignItems: 'center' }}>
@@ -102,7 +105,7 @@ const MapPage = () => {
 
       <div style={{ display: 'flex', justifyContent: 'center', height: '60px' }}>
         <div style={{ marginTop: '10px' }}>
-          <Button onClick={click} style={{ backgroundColor: 'peachpuff' }}>
+          <Button onClick={click} style={{ backgroundColor: 'peachpuff', width:'200px',borderRadius:'40px' }}>
             Go!
           </Button>
         </div>

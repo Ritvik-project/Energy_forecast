@@ -3,6 +3,7 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import { useSelector } from 'react-redux';
 
 const SolarGraph = () => {
+    console.log("welcome")
   const [index, setIndex] = useState(0);
   const [datas, setDatas] = useState({
     time: [],
@@ -14,8 +15,9 @@ const SolarGraph = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://192.168.188.29:5001/predict?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`);
+        const res = await fetch(`https://pradeepsahu-renewableenergypredictionmodel.hf.space/predict?latitude=${latitude}&longitude=${longitude}`);
         const data = await res.json();
+        console.log("data="+data);
         if (data && data.hourly) {
           setDatas({
             time: data.hourly.formatted_time || [],
@@ -44,7 +46,7 @@ const SolarGraph = () => {
   return (
     <>
       <div style={{ marginTop: '30px' }}>
-        <h1 className='Gh'>Solar power generation</h1>
+        <h1 className='Gh'>Solar Power Generation</h1>
       </div>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <LineChart

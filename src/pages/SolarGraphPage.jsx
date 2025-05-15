@@ -3,7 +3,7 @@ import Solargraph from '../components/Solargraph'
 const SolarGraphPage = () => {
   return (
     <>
-        <div>
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column'}}>
             <Solargraph />
         </div>
     </>

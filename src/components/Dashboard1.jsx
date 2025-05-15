@@ -41,9 +41,9 @@ const Dashboard1 = () => {
         <div className="parent">
           <div className="Dash_U bg-gray-700">
             <div className="left_side">
-              <div style={{ display: 'flex', flexDirection: 'row', paddingBottom: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'row', paddingBottom: '20px', position:'relative',top:'0' }}>
                 <div>
-                  Longitude:{' '}
+                  Latitude:{' '}
                   <input
                     className="outline-hidden border-none"
                     value={latitude}
@@ -53,7 +53,7 @@ const Dashboard1 = () => {
                   />
                 </div>
                 <div>
-                  Latitude:{' '}
+                  Longitude:{' '}
                   <input
                     className="outline-hidden border-none"
                     value={longitude}
@@ -65,8 +65,8 @@ const Dashboard1 = () => {
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <h1 className="h1A">38{temperature[0]}</h1>{' '}
-                <h1 className="h1B">{'\u00B0'}C</h1>
+                <h1 className="h1A">38{temperature[0]}{'\u00B0'}C</h1>{' '}
+                {/* <h1 className="h1B" style={{marginTop:'10px'}}>{'\u00B0'}C</h1> */}
               </div>
 
               <div className="same_l">

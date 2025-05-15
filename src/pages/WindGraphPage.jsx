@@ -4,7 +4,7 @@ import Windgraph from '../components/Windgraph'
 const WindGraphPage = () => {
   return (
     <>
-        <div>
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column'}}>
             <Windgraph />
         </div>
     </>

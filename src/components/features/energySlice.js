@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchEnergyData = createAsyncThunk(
   'energy/fetchEnergyData',
   async ({ latitude, longitude }) => {
-    const response = await fetch(`https://cb51-49-249-148-147.ngrok-free.app/predict?latitude=${latitude}&longitude=${longitude}`);
+    const response = await fetch(`https://pradeepsahu-renewableenergypredictionmodel.hf.space/predict?latitude=${latitude}&longitude=${longitude}`);
     const data = await response.json();
     console.log(data);
     return data.hourly;

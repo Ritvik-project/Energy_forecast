@@ -18,7 +18,7 @@ const Windgraph = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://192.168.188.29:5001/predict?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`);
+        const response = await fetch(`https://pradeepsahu-renewableenergypredictionmodel.hf.space/predict?latitude=${latitude}&longitude=${longitude}`);
         const data = await response.json();
         if (data && data.hourly) {
           setDataw({
@@ -45,7 +45,7 @@ const Windgraph = () => {
   return (
     <>
       <div style={{ marginTop: '30px' }}>
-        <h1 className='Gh'>Wind power generation</h1>
+        <h1 className='Gh'>Wind Power Generation</h1>
       </div>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <LineChart

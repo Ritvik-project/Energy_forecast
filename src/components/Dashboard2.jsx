@@ -37,17 +37,17 @@ const Dashboard2 = () => {
     <>
       <div className='second_dash'>
         <div className='first_2' onClick={clicksolar}>
-          <div style={{ marginTop: '-110px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: 'bold' }}>
+          <div style={{ marginTop: '-60px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: 'bold' }}>
             <h3>Solar Panel</h3>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '10px' }}>
             <MdOutlineSolarPower size={60} />
           </div>
 
-          <div style={{ margin: '20px 0px 8px 8px' }}>Power Generation</div>
-          <div style={{margin: '0px 0px 0px 8px'}}>Current: {solarP[0]?.toFixed(2)} kW</div>
-          <div style={{ margin: '0px 0px 8px 8px' }}>Max: {maxs} kW</div>
-          <div style={{ margin: '0px 0px 0px 8px' }}>Low: {mins} kW</div>
+          <div style={{ margin: '20px 0px 8px 0px', display:'flex',justifyContent:'center',fontSize:'20px' }}>Power Generation</div>
+          <div style={{margin: '0px 0px 8px 10px'}}>Current: {solarP[0]?.toFixed(2)} kW</div>
+          <div style={{ margin: '0px 0px 8px 10px' }}>Max: {maxs} kW</div>
+          <div style={{ margin: '0px 0px 0px 10px' }}>Low: {mins} kW</div>
         </div>
 
         <div className='second_2'>
@@ -57,8 +57,8 @@ const Dashboard2 = () => {
                 xAxis={[{ data: hours, label: 'Time (in hours)' }]}
                 yAxis={[{ label: 'Power Generation (in kW)' }]}
                 series={[
-                  { data: solarP, label: 'Solar Panel' },
-                  { data: windP, label: 'Windmill' }
+                  { data: solarP, label: 'SOLAR ENERGY' },
+                  { data: windP, label: 'WIND ENERGY' }
                 ]}
                 width={500}
                 height={300}
@@ -68,16 +68,16 @@ const Dashboard2 = () => {
         </div>
 
         <div className='third_2' onClick={clickwind}>
-          <div style={{ marginTop: '-110px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: 'bold' }}>
+          <div style={{ marginTop: '-60px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: 'bold' }}>
             <h3>Wind Mill</h3>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '10px' }}>
             <TbWindmill size={60} />
           </div>
-          <div style={{ margin: '20px 0px 8px 8px' }}>Power Generation</div>
-          <div style={{margin: '0px 0px 0px 8px'}}>Current:{windP[0]?.toFixed(2)} kW</div>
-          <div style={{ margin: '0px 0px 8px 8px' }}>Max: {maxw} kW</div>
-          <div style={{ margin: '0px 0px 0px 8px' }}>Low: {minw} kW</div>
+          <div style={{ margin: '20px 0px 8px 0px',display:'flex',justifyContent:'center',fontSize:'20px'  }}>Power Generation</div>
+          <div style={{margin: '0px 0px 8px 10px'}}>Current:{windP[0]?.toFixed(2)} kW</div>
+          <div style={{ margin: '0px 0px 8px 10px' }}>Max: {maxw} kW</div>
+          <div style={{ margin: '0px 0px 0px 10px' }}>Low: {minw} kW</div>
         </div>
       </div>
     </>
